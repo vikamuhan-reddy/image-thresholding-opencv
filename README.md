@@ -2,97 +2,122 @@
 
 ## Aim
 
-To segment an image using Global Thresholding, Adaptive Thresholding, and Otsu's Thresholding techniques using Python and OpenCV.
+To segment an image using Global Thresholding, Adaptive Thresholding,
+and Otsu's Thresholding techniques using Python and OpenCV.
 
 The program performs the following operations:
 
-- Global Thresholding
-- Adaptive Thresholding
-- Otsu's Thresholding
+-   Global Thresholding
+-   Adaptive Thresholding
+-   Otsu's Thresholding
+
+## Learning Objectives
+
+-   Understand image segmentation using thresholding techniques.
+-   Learn how fixed and adaptive threshold values are applied.
+-   Compare Global, Adaptive Mean, Adaptive Gaussian, and Otsu's
+    thresholding.
 
 ## Software Used
 
-- Anaconda – Python 3.7
-- Jupyter Notebook / VS Code
-- OpenCV (cv2)
-- NumPy
-- Matplotlib
+-   Anaconda -- Python 3.7
+-   Jupyter Notebook / VS Code
+-   OpenCV (`cv2`)
+-   NumPy
+-   Matplotlib
 
-## Algorithm
+## Algorithm and Explanation
 
-### Step 1:
+### Step 1: Import Libraries
 
-Import the required libraries: OpenCV, NumPy, and Matplotlib.
+``` python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+```
 
-### Step 2:
+### Step 2: Read Image
 
-Load the input image using OpenCV.
+``` python
+image = cv2.imread("C:/Users/vikam/Downloads/exp8_img.png")
+```
 
-### Step 3:
+### Step 3: Convert to Grayscale
 
-Convert the input image into grayscale format.
+``` python
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+```
 
 ### Step 4: Global Thresholding
 
-- Select a fixed threshold value.
-- Apply thresholding to separate foreground and background pixels.
-- Display the thresholded image.
+``` python
+_, global_thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+```
 
 ### Step 5: Adaptive Thresholding
 
-- Compute threshold values for small regions of the image.
-- Apply Adaptive Mean Thresholding.
-- Apply Adaptive Gaussian Thresholding.
-- Display the segmented images.
+``` python
+mean_thresh = cv2.adaptiveThreshold(
+    gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C,
+    cv2.THRESH_BINARY, 11, 2
+)
+
+gaussian_thresh = cv2.adaptiveThreshold(
+    gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+    cv2.THRESH_BINARY, 11, 2
+)
+```
 
 ### Step 6: Otsu's Thresholding
 
-- Automatically determine the optimal threshold value.
-- Apply Otsu's thresholding technique.
-- Display the segmented image.
+``` python
+otsu_value, otsu_thresh = cv2.threshold(
+    gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
+)
+```
 
-### Step 7:
+### Step 7: Display and Compare Results
 
-Compare the results obtained from Global, Adaptive, and Otsu's thresholding methods.
+``` python
+images = [gray, global_thresh, mean_thresh, gaussian_thresh, otsu_thresh]
 
-## Program
+titles = [
+    "Original Grayscale",
+    "Global Thresholding",
+    "Adaptive Mean",
+    "Adaptive Gaussian",
+    "Otsu's Thresholding"
+]
 
-## Developed By
+plt.figure(figsize=(12, 8))
 
-**Name:** ____________________________
+for i in range(5):
+    plt.subplot(2, 3, i+1)
+    plt.imshow(images[i], cmap='gray')
+    plt.title(titles[i])
+    plt.axis('off')
 
-**Register No:** ______________________
+plt.tight_layout()
+plt.show()
 
-## Output
+print("Otsu Threshold Value:", otsu_value)
+print("Image Segmentation Completed Successfully!")
+```
 
-### Original Grayscale Image
+## Expected Output
+<img width="1103" height="638" alt="image" src="https://github.com/user-attachments/assets/5dbe0b0f-5c11-41d6-aafb-7e351a200cec" />
 
-- The grayscale version of the input image is displayed.
-- Serves as the input for thresholding operations.
 
-### Global Thresholding
+### Comparison of Results
 
-- Original image is displayed.
-- Thresholded image is displayed.
-- A fixed threshold value is used for segmentation.
-- Pixels are classified as foreground or background.
-
-### Adaptive Thresholding
-
-- Original image is displayed.
-- Adaptive Mean Thresholded image is displayed.
-- Adaptive Gaussian Thresholded image is displayed.
-- Threshold values vary across different regions of the image.
-- Suitable for images with uneven illumination.
-
-### Otsu's Thresholding
-
-- Original image is displayed.
-- Otsu segmented image is displayed.
-- Optimal threshold value is calculated automatically.
-- Produces improved segmentation for bimodal histograms.
-
+-   Displays the grayscale image alongside all four thresholding
+    results.
+-   Helps compare the segmentation produced by each technique.
 
 ## Result
 
-Thus, image segmentation is successfully performed using **Global Thresholding, Adaptive Thresholding, and Otsu's Thresholding** techniques in OpenCV. 
+Thus, image segmentation is successfully performed using **Global
+Thresholding, Adaptive Thresholding, and Otsu's Thresholding**
+techniques in OpenCV.
+
+
