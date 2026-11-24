@@ -108,11 +108,6 @@ print("Image Segmentation Completed Successfully!")
 <img width="1103" height="638" alt="image" src="https://github.com/user-attachments/assets/5dbe0b0f-5c11-41d6-aafb-7e351a200cec" />
 
 
-### Comparison of Results
-
--   Displays the grayscale image alongside all four thresholding
-    results.
--   Helps compare the segmentation produced by each technique.
 
 ## Result
 
